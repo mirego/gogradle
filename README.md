@@ -6,7 +6,7 @@ Increment version script
 
 This script increments the version when the switch -PincrementVersion=true is passed.
 
-First, you must create a version.properties file with the initial version. Second you need to insert this into your gradle build script. The script will work even offline if you executed it online at least once.
+You need to insert this into your gradle build script. The script will work even offline if you executed it online at least once.
 
 ```
 plugins {

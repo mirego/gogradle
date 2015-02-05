@@ -4,21 +4,20 @@ def getStoredVersionCode(Project project) {
         increment = Boolean.parseBoolean(incrementVersion);
     }
     def versionPropsFile = file('version.properties')
+    def Properties versionProps = new Properties()
+    def code = 0
     if (versionPropsFile.canRead()) {
-        def Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        def code = versionProps['VERSION_CODE'].toInteger()
-        if (increment) {
-            println "Incrementing stored version code"
-            code++
-            versionProps['VERSION_CODE'] = code.toString()
-            versionProps.store(versionPropsFile.newWriter(), null)
-        }
-        println "Using version code = " + code
-        return code
-    } else {
-        throw new GradleException("Could not read version.properties!")
+      versionProps.load(new FileInputStream(versionPropsFile))
+      code = versionProps['VERSION_CODE'].toInteger()      
     }
+    if (increment) {
+        println "Incrementing stored version code"
+        code++
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+    }
+    println "Using version code = " + code
+    return code
 }
 
 ext {
