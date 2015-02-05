@@ -1,0 +1,26 @@
+def getStoredVersionCode(Project project) {
+    boolean increment = false;
+    if (project.hasProperty('incrementVersion')) {
+        increment = Boolean.parseBoolean(incrementVersion);
+    }
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def code = versionProps['VERSION_CODE'].toInteger()
+        if (increment) {
+            println "Incrementing stored version code"
+            code++
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+        }
+        println "Using version code = " + code
+        return code
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+ext {
+    getStoredVersionCode = this.&getStoredVersionCode
+}
