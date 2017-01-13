@@ -1,14 +1,14 @@
-def getStoredVersionCode(Project project) {
+def getStoredVersionCode(Project project, String versionFileName = 'version.properties') {
     boolean increment = false;
     if (project.hasProperty('incrementVersion')) {
         increment = Boolean.parseBoolean(incrementVersion);
     }
-    def versionPropsFile = file('version.properties')
+    def versionPropsFile = file(versionFileName)
     def Properties versionProps = new Properties()
     def code = 0
     if (versionPropsFile.canRead()) {
-      versionProps.load(new FileInputStream(versionPropsFile))
-      code = versionProps['VERSION_CODE'].toInteger()      
+        versionProps.load(new FileInputStream(versionPropsFile))
+        code = versionProps['VERSION_CODE'].toInteger()
     }
     if (increment) {
         println "Incrementing stored version code"
@@ -19,6 +19,7 @@ def getStoredVersionCode(Project project) {
     println "Using version code = " + code
     return code
 }
+
 
 ext {
     getStoredVersionCode = this.&getStoredVersionCode
