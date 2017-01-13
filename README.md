@@ -28,6 +28,21 @@ android {
 
 ```
 
+Custom file name
+-----------
+
+By default, the script will use a file named version.properties. If you want to use another file name, you can specify it as a second parameter:
+
+```
+android {
+  ...
+  defaultConfig {
+  ...
+    versionCode = getStoredVersionCode(project, 'customname.properties')
+  }
+}
+```
+
 
 ## License
 
