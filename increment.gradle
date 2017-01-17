@@ -1,7 +1,7 @@
-def getStoredVersionCode(Project project, String versionFileName = 'version.properties') {
+def getStoredVersionCode(Project project, String versionFileName = 'version.properties', String paramName = 'incrementVersion') {
     boolean increment = false;
-    if (project.hasProperty('incrementVersion')) {
-        increment = Boolean.parseBoolean(incrementVersion);
+    if (project.hasProperty(paramName)) {
+        increment = Boolean.parseBoolean(project.getProperties().get(paramName));
     }
     def versionPropsFile = file(versionFileName)
     def Properties versionProps = new Properties()
@@ -19,7 +19,6 @@ def getStoredVersionCode(Project project, String versionFileName = 'version.prop
     println "Using version code = " + code
     return code
 }
-
 
 ext {
     getStoredVersionCode = this.&getStoredVersionCode
