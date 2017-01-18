@@ -43,6 +43,20 @@ android {
 }
 ```
 
+Custom param name
+-----------
+
+If you want to use another param name than `incrementVersion`, you can pass an optional parameter with another param name. This may be useful when using multiple version files.
+
+```
+android {
+  ...
+  defaultConfig {
+  ...
+    versionCode = getStoredVersionCode(project, 'customname.properties', 'customParamName')
+  }
+}
+```
 
 ## License
 
